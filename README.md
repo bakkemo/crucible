@@ -9,9 +9,9 @@ task lists whose ticks are **proven by contract** — the harness checks the
 work, the model doesn't get to grade itself — and a constraint solver the
 model can call as a tool.
 
-> **Beta 0.8.164 — download:**
-> [**macOS** (Apple silicon, signed & notarized)](releases/crucible-beta-0.8.164.zip?raw=true)
-> · [**Windows** (x64)](releases/crucible-beta-windows-0.8.164.zip?raw=true).
+> **Beta 0.8.166 — download:**
+> [**macOS** (Apple silicon, signed & notarized)](releases/crucible-beta-0.8.166.zip?raw=true)
+> · [**Windows** (x64)](releases/crucible-beta-windows-0.8.166.zip?raw=true).
 > Unzip, read `READ-ME-FIRST.txt`, run. No API key needed to try it:
 > keyless sessions run against a deterministic offline stand-in, and the
 > banner tells you honestly which one you're on.
