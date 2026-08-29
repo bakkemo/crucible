@@ -85,6 +85,10 @@ from the internet" confirmation, which `start-crucible.sh` clears. The
 info → Run anyway"); the macOS build has months of daily use behind it,
 the Windows one is where beta reports matter most.
 
+Found a bug, or something confusing? [Open an issue](https://github.com/bakkemo/crucible/issues)
+or email **crucibleharness@gmail.com** — a sentence about what you did and
+what you saw is plenty; screenshots welcome.
+
 Everything in the GIFs above is real: both were recorded from live sessions
 of the shipped binary — the terminal frames through Crucible's own
 `--debug-tty` screen readout, the browser frames photographed from the
