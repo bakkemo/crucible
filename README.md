@@ -38,7 +38,7 @@ Prolog. Written in a mainstream language anyway, a harness becomes a swamp
 of `async`/`await`, retry libraries, and hand-rolled state machines — none
 of it essential complexity.
 
-So Crucible is built the other way: on **Obverse**, a Verse-inspired
+So Crucible is built the other way: on **Obverse** https://bakkemo.github.io/obverse-playground/, a Verse-inspired
 functional logic language designed alongside it, where those semantics are
 the language. The thesis in one line: *stop encoding these semantics in a
 language that lacks them.* Fallbacks, races, retries, schema validation,
