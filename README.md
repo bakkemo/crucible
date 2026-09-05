@@ -16,6 +16,7 @@ model can call as a tool.
 > Unzip, read `READ-ME-FIRST.txt`, run. No API key needed to try it:
 > keyless sessions run against a deterministic offline stand-in, and the
 > banner tells you honestly which one you're on.
+> **Looking for beta testers** — [what would help most](#beta-testers-wanted).
 
 ## Why another harness
 
@@ -85,9 +86,32 @@ from the internet" confirmation, which `start-crucible.sh` clears. The
 info → Run anyway"); the macOS build has months of daily use behind it,
 the Windows one is where beta reports matter most.
 
-Found a bug, or something confusing? [Open an issue](https://github.com/bakkemo/crucible/issues)
-or email **crucibleharness@gmail.com** — a sentence about what you did and
-what you saw is plenty; screenshots welcome.
+## Beta testers wanted
+
+I'm looking for **around fifty people** to run Crucible on real work for a
+couple of weeks and tell me what happened. No sign-up, no commitment:
+download it, use it, report.
+
+What would help most:
+
+- **Local models.** Point it at Ollama (`OLLAMA_HOST`) or at LM Studio,
+  llama.cpp or vLLM (`CRUCIBLE_LOCAL_URLS`), pick the model in `/model`,
+  and tell me which models hold up through tool calls and which go strange.
+  That territory is barely measured; every report moves it.
+- **Windows.** The build is fresh and has had no daily use. A plain "it
+  launched and ran a task" is a data point. Anything that broke is a
+  better one.
+- **Confusion.** A command that didn't do what its name suggested, a manual
+  page that didn't answer the question, a banner line you had to guess at.
+  Those count as bugs here.
+- **The unattended path.** A task list with contracts, left to run: did the
+  *proven* and *claimed* verdicts match what you found in the sandbox
+  afterwards?
+
+Send it as an [issue](https://github.com/bakkemo/crucible/issues) or to
+**crucibleharness@gmail.com** — a sentence about what you did and what you
+saw is plenty; screenshots welcome. Keyless sessions bill nothing, so
+kicking the tyres costs nothing either.
 
 Everything in the GIFs above is real: both were recorded from live sessions
 of the shipped binary — the terminal frames through Crucible's own
