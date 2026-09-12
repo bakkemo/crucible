@@ -9,9 +9,9 @@ task lists whose ticks are **proven by contract** — the harness checks the
 work, the model doesn't get to grade itself — and a constraint solver the
 model can call as a tool.
 
-> **Beta 0.8.170 — download:**
-> [**macOS** (Apple silicon, signed & notarized)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-0.8.170.zip)
-> · [**Windows** (x64)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-windows-0.8.170.zip)
+> **Beta 0.8.183 — download:**
+> [**macOS** (Apple silicon, signed & notarized)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-0.8.183.zip)
+> · [**Windows** (x64)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-windows-0.8.183.zip)
 > · or from the [latest release](https://github.com/bakkemo/crucible/releases/latest).
 > Unzip, read `READ-ME-FIRST.txt`, run. No API key needed to try it:
 > keyless sessions run against a deterministic offline stand-in, and the
@@ -68,6 +68,48 @@ panel's rail shows per-item verdicts, checkpoints, and cost.
 
 ![the rich TUI beside the live web mirror, working through a task list](media/crucible-tasks.gif)
 
+## Local models with KV-cache surgery
+
+Crucible can drive [alekk89's KV-surgical fork of `llama.cpp`](https://github.com/alekk89/llama.cpp-kv-surgical-fork)
+(`experimental/kv-surgery-dflash`) instead of an ordinary local server. The
+fork holds a model's KV cache — its working memory of the conversation so
+far — as something that can be edited in place: an old exchange evicted, a
+hole compacted, the live tail extended, all without re-reading the whole
+prompt. Crucible is the half that decides what belongs in that cache each
+turn — which exchanges are still relevant, which are spent and can be
+reclaimed, and, optionally, which get replaced by a short summary instead of
+a bare marker. On a single machine the summary usually arrives after its
+exchange has already been evicted; a late summary is spliced in over its
+marker at the next make-room step, with no cache rebuild, and eviction
+prefers ranges whose summary has already landed. A second server for the
+summariser still shows the pairing at its best.
+
+Setup is three lines once the server is running:
+
+```
+llama-server -m <model.gguf> --alias qwen2.5-7b --port 8081 --jinja --parallel 2 --slot-save-path ./slots
+export CRUCIBLE_LOCAL_URLS=http://127.0.0.1:8081
+/model qwen2.5-7b
+```
+
+Measured on a 7B model with an 8,192-cell window: a 20-file read chain, each
+file naming the next, ran to completion and answered correctly at turn 21
+with **zero cache rebuilds and 55 evictions**. The same window under
+whole-transcript compaction — the mainstream approach, kept in Crucible as a
+named control arm — re-summarised its way through the same chain and lost the
+thread before finishing. Both are single measurements on one workload on one
+model, not a benchmark claim. The benchmark itself ships in the program:
+`crucible --bench-kv` runs the chain (and a competing-facts variant) against a
+plain chat endpoint and against the surgical slot and prints a table —
+`crucible --bench-kv --help` lists the knobs.
+
+The macOS handout zip ships a prebuilt `llama-server-kv` and a
+`start-kv-server.sh` launcher, built from the fork at commit `978dc96`. Windows builds the server itself from the
+fork's own CUDA recipe — no prebuilt Windows binary yet.
+
+`QUICKSTART-KV.pdf`, in the zip, walks the whole setup end to end for someone who has never run a local model
+server before.
+
 ## What's in the zip
 
 | file | what it is |
@@ -78,6 +120,8 @@ panel's rail shows per-item verdicts, checkpoints, and cost.
 | `QUICKSTART-BETA.pdf` | a 20-minute guided tour |
 | `crucible-manual.pdf` | the full reference, with index |
 | `task-list-tutorial.pdf` | one subsystem taught properly, front to back |
+| `QUICKSTART-KV.pdf` | the local-model setup, with KV-cache surgery, end to end |
+| `llama-server-kv` / `start-kv-server.sh` | macOS only: the KV-surgical `llama.cpp` server, prebuilt and signed, and its launcher (with its `LICENSE` and `NOTICE`) |
 
 Platform notes: the **macOS** build is Developer-ID signed and the zip is
 notarized by Apple — no warnings; at most the standard one-time "downloaded
