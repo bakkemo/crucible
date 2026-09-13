@@ -10,8 +10,8 @@ work, the model doesn't get to grade itself — and a constraint solver the
 model can call as a tool.
 
 > **Beta 0.8.186 — download:**
-> [**macOS** (Apple silicon, signed & notarized)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-0.8.186.zip)
-> · [**Windows** (x64)](https://raw.githubusercontent.com/bakkemo/crucible/master/releases/crucible-beta-windows-0.8.186.zip)
+> [**macOS** (Apple silicon, signed & notarized)](https://github.com/bakkemo/crucible/releases/download/v0.8.186/crucible-beta-0.8.186.zip)
+> · [**Windows** (x64)](https://github.com/bakkemo/crucible/releases/download/v0.8.186/crucible-beta-windows-0.8.186.zip)
 > · or from the [latest release](https://github.com/bakkemo/crucible/releases/latest).
 > Unzip, read `READ-ME-FIRST.txt`, run. No API key needed to try it:
 > keyless sessions run against a deterministic offline stand-in, and the
